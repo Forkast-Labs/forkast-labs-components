@@ -1,0 +1,1 @@
+export const INDEX_DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm:00';

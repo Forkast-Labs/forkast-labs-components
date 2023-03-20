@@ -1,0 +1,13 @@
+dist/**
+node_modules/**
+
+.env
+
+# misc
+.DS_Store
+*.pem
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+node_modules
