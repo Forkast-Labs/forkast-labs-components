@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { ChangeState } from 'types/ui';
+import { ChangeState } from '../../../types/ui';
 
 type Props = {
   state: ChangeState;

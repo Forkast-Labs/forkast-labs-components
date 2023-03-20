@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import { FORKAST_WEB_URL } from 'constants/variables';
-import { formatLargeNumber } from 'utils/formatting';
-import { IndexSummary } from 'api/indexes';
-import { useTheme } from 'hooks/useTheme';
+import { FORKAST_WEB_URL } from '../../../constants/variables';
+import { formatLargeNumber } from '../../../utils/formatting';
+import { IndexSummary } from '../../../api/indexes';
+import { useTheme } from '../../../hooks/useTheme';
 import { Loader } from './Loader/Loader';
 import { PriceChange } from './PriceChange/PriceChange';
 

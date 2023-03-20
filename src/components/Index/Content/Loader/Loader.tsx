@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useTheme } from 'hooks/useTheme';
+import { useTheme } from '../../../../hooks/useTheme';
 
 export const Loader: React.FunctionComponent = () => {
   const { colors } = useTheme();

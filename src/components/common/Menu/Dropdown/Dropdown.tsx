@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useOnClickOutside } from 'hooks/useClickOutside';
+import { useOnClickOutside } from '../../../../hooks/useClickOutside';
 
 type Props<T> = {
   items: { id: T; title: string }[];

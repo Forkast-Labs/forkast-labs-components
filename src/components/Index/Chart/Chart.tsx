@@ -1,11 +1,11 @@
 import React from 'react';
 import numbro from 'numbro';
-import { ChangeState, PossibleTimeRanges } from 'types/ui';
-import { useIndexesHistory } from 'api/indexes';
-import { formatLargeNumber } from 'utils/formatting';
-import { getDateTimeUTCTimestamp } from 'helpers/lightweight-chart';
-import SeriesChart from 'components/common/Chart/SeriesChart/SeriesChart';
-import { ChartTooltip } from 'components/common/Chart';
+import { ChangeState, PossibleTimeRanges } from '../../../types/ui';
+import { useIndexesHistory } from '../../../api/indexes';
+import { formatLargeNumber } from '../../../utils/formatting';
+import { getDateTimeUTCTimestamp } from '../../../helpers/lightweight-chart';
+import SeriesChart from '../../../components/common/Chart/SeriesChart/SeriesChart';
+import { ChartTooltip } from '../../../components/common/Chart';
 
 type Props = {
   symbol: string;

@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { DEFAULT_COLORS } from 'context/theme';
-import { useTheme } from 'hooks/useTheme';
-import { Alert } from 'components/common/ui/icons';
+import { DEFAULT_COLORS } from '../../../context/theme';
+import { useTheme } from '../../../hooks/useTheme';
+import { Alert } from '../../../components/common/ui/icons';
 
 type Props = {
   reload: () => void;

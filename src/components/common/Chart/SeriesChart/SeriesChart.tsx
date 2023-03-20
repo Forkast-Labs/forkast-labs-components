@@ -6,8 +6,12 @@ import {
   SeriesType,
   UTCTimestamp,
 } from 'lightweight-charts';
-import { buildDateFromTime, getPreviousYear } from 'helpers/lightweight-chart';
-import { ChartTooltip } from './components/ChartTooltip/ChartTooltip';
+import {
+  buildDateFromTime,
+  getPreviousYear,
+} from '../../../../helpers/lightweight-chart';
+import { useTheme } from '../../../../hooks/useTheme';
+import { Loader } from '../../../../components/common/Loader/Loader';
 import {
   SERIES_BASE_CONFIG,
   getChartBaseOptions,
@@ -15,9 +19,8 @@ import {
   ChartProps,
 } from './configs';
 import { buildTooltipData } from './helpers';
+import { ChartTooltip } from './components/ChartTooltip/ChartTooltip';
 import { PriceScaleIds, SeriesData, TooltipData, TooltipInfo } from './types';
-import { Loader } from 'components/common/Loader/Loader';
-import { useTheme } from 'hooks/useTheme';
 
 type Props = {
   data: SeriesData[] | undefined;

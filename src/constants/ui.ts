@@ -1,5 +1,5 @@
-import { PossibleTimeRanges, TimeRange, TimeState } from 'types/ui';
-import dayjs from 'utils/dayjs';
+import { PossibleTimeRanges, TimeRange, TimeState } from '../types/ui';
+import dayjs from '../utils/dayjs';
 
 export const TIME_RANGE: TimeRange[] = [
   { id: '24h', title: '1D' },

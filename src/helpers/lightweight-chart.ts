@@ -4,7 +4,7 @@ import {
   Time,
   UTCTimestamp,
 } from 'lightweight-charts';
-import dayjs from 'utils/dayjs';
+import dayjs from '../utils/dayjs';
 
 export const businessDayToString = ({ year, month, day }: BusinessDay) =>
   dayjs(new Date(year, month - 1, day));

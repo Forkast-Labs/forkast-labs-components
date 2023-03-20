@@ -1,20 +1,20 @@
-import React from "react";
-import dayjs from "utils/dayjs";
+import React from 'react';
+import dayjs from '../../../utils/dayjs';
 
 type Props = {
-	timestamp: number;
-	format?: string;
+  timestamp: number;
+  format?: string;
 };
 
 export const UserTime: React.FunctionComponent<Props> = ({
-	timestamp,
-	format = "MMMM D[,] YYYY [at] hh:mma",
+  timestamp,
+  format = 'MMMM D[,] YYYY [at] hh:mma',
 }) => {
-	return (
-		<>
-			{dayjs(timestamp).format(format)} {dayjs().offsetName()}
-		</>
-	);
+  return (
+    <>
+      {dayjs(timestamp).format(format)} {dayjs().offsetName()}
+    </>
+  );
 };
 
 export default UserTime;

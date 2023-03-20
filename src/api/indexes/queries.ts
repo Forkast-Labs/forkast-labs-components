@@ -1,5 +1,5 @@
 import { QueryClient, useQuery } from 'react-query';
-import { TimeState } from 'types/ui';
+import { TimeState } from '../../types/ui';
 import {
   fetchIndexChanges,
   fetchIndexesHistory,

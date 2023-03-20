@@ -1,8 +1,7 @@
-import { useTheme } from 'hooks/useTheme';
-import * as React from 'react';
-import { SVGProps } from 'react';
+import React from 'react';
+import { useTheme } from '../../../../hooks/useTheme';
 
-export const Info = (props: SVGProps<SVGSVGElement>) => {
+export const Info = (props: React.SVGProps<SVGSVGElement>) => {
   const { colors } = useTheme();
 
   return (

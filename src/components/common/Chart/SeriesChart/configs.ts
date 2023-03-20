@@ -11,8 +11,8 @@ import {
   TickMarkType,
   UTCTimestamp,
 } from 'lightweight-charts';
-import dayjs from 'utils/dayjs';
-import { businessDayToString } from 'helpers/lightweight-chart';
+import dayjs from '../../../../utils/dayjs';
+import { businessDayToString } from '../../../../helpers/lightweight-chart';
 import { ChartColors, PriceScaleIds, Trend } from './types';
 
 export type ChartProps = {

@@ -5,7 +5,7 @@ import {
   LineData,
   PriceFormat,
 } from 'lightweight-charts';
-import dayjs from 'utils/dayjs';
+import dayjs from '../../../../utils/dayjs';
 
 export enum PriceScaleIds {
   LEFT = 'left',

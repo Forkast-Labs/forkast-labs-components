@@ -4,15 +4,15 @@ import {
   DEFAULT_TIME_RANGE,
   TIME_RANGE,
   TIME_WITH_REFETCH,
-} from 'constants/ui';
-import { useIndexesSummaries } from 'api/indexes';
-import { getChangeState } from 'helpers/ui';
-import { useTheme } from 'hooks/useTheme';
-import { QueryProvider } from 'components/common/QueryProvider/QueryProvider';
-import UserTime from 'components/common/UserTime/UserTime';
-import { Menu } from 'components/common/Menu/Menu';
-import { Info } from 'components/common/ui/icons';
-import { Tooltip } from 'components/common/Tooltip/Tooltip';
+} from '../../constants/ui';
+import { useIndexesSummaries } from '../../api/indexes';
+import { getChangeState } from '../../helpers/ui';
+import { useTheme } from '../../hooks/useTheme';
+import { QueryProvider } from '../../components/common/QueryProvider/QueryProvider';
+import UserTime from '../../components/common/UserTime/UserTime';
+import { Menu } from '../../components/common/Menu/Menu';
+import { Info } from '../../components/common/ui/icons';
+import { Tooltip } from '../../components/common/Tooltip/Tooltip';
 import { Content } from './Content/Content';
 import Chart from './Chart/Chart';
 import { Promo } from './Promo/Promo';

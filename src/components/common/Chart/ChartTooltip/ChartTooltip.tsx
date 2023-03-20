@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatCurrency } from 'utils/formatting';
+import { formatCurrency } from '../../../../utils/formatting';
 import { TooltipData } from '../SeriesChart/types';
 
 type Props = Partial<TooltipData> & {

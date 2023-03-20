@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { SVGProps } from 'react';
+import React from 'react';
 
-export const Forkastlabs = (props: SVGProps<SVGSVGElement>) => (
+export const Forkastlabs = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={59}

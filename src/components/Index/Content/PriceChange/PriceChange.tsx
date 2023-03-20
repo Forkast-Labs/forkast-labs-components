@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { formatePercentage } from 'utils/formatting';
-import { getChangeState } from 'helpers/ui';
-import { Triangle } from 'components/common/Triangle/Triangle';
+import { formatePercentage } from '../../../../utils/formatting';
+import { getChangeState } from '../../../../helpers/ui';
+import { Triangle } from '../../../../components/common/Triangle/Triangle';
 
 type Props = {
   change: number;

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
-import { useTheme } from 'hooks/useTheme';
-import { Arrow } from 'components/common/ui/icons';
+import { useTheme } from '../../../hooks/useTheme';
+import { Arrow } from '../../../components/common/ui/icons';
 import { Dropdown } from './Dropdown/Dropdown';
 
 type Props<T> = {
