@@ -1,9 +1,18 @@
 {
-  "name": "forkast-labs-package",
   "version": "0.1.0",
+  "name": "forkast-labs-components",
+  "author": "forkastlabs",
+  "license": "MIT",
   "description": "",
-  "main": "dist/cjs/index.js",
+  "bugs": {
+    "url": "https://github.com/Forkast-Labs/forkast-labs-components/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Forkast-Labs/forkast-labs-components.git"
+  },
   "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "HISTORY.md",
@@ -12,6 +21,7 @@
     "dist/**/*.d.ts",
     "dist/**/*.js"
   ],
+  "keywords": [],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist",
@@ -19,8 +29,6 @@
     "prepack": "npm run build",
     "watch": "rollup -c --watch"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
