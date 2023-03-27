@@ -19,7 +19,7 @@ export const ChartTooltip: React.FunctionComponent<Props> = ({
 
   return (
     <div className="fkl-flex fkl-flex-col fkl-px-2 fkl-py-1 fkl-bg-[#FCFDFC] fkl-rounded-[4px] fkl-text-black fkl-text-[14px] fkl-border fkl-border-grey">
-      <div className="fkl-flex fkl-flex-row fkl-content-between">
+      <div className="fkl-flex fkl-flex-row fkl-justify-between">
         <div>
           <b>{date.format('MMMM D, YYYY')}</b>
         </div>

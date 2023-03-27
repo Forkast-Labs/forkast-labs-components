@@ -43,10 +43,7 @@ export const IndexMovers: React.FunctionComponent<Props> = React.memo(
             style={{ color: colors.text }}
             className={classNames(
               'fkl-text-[16px] fkl-leading-[20px] fkl-font-semibold fkl-cursor-pointer fkl-pb-1',
-              tab === 'gainers' ? 'fkl-border-b-4' : '',
-              tab === 'gainers'
-                ? 'fkl-border-[#61E085]'
-                : 'fkl-border-[#FD2F2F]',
+              tab === 'gainers' ? 'fkl-border-b-4 fkl-border-[#61E085]' : '',
               'lg:fkl-text-[24px] lg:fkl-leading-[32px]'
             )}
             onClick={() => setTab('gainers')}
@@ -58,10 +55,7 @@ export const IndexMovers: React.FunctionComponent<Props> = React.memo(
             style={{ color: colors.text }}
             className={classNames(
               'fkl-text-[16px] fkl-leading-[20px] fkl-font-semibold fkl-cursor-pointer fkl-pb-1',
-              tab === 'declainers' ? 'fkl-border-b-4' : '',
-              tab === 'declainers'
-                ? 'fkl-border-[#61E085]'
-                : 'fkl-border-[#FD2F2F]',
+              tab === 'declainers' ? 'fkl-border-b-4 fkl-border-[#FD2F2F]' : '',
               'lg:fkl-text-[24px] lg:fkl-leading-[32px]'
             )}
             onClick={() => setTab('declainers')}
