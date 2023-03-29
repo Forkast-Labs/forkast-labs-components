@@ -11,6 +11,7 @@ import UserTime from '../../common/UserTime/UserTime';
 import { Periods } from './Periods/Periods';
 import { Summary } from './Summary/Summary';
 import { IosSwitch } from './IosSwitch/IosSwitch';
+import { DatePicker } from './DatePicker/DatePicker';
 
 type Props = {
   symbol: string;
@@ -66,7 +67,7 @@ export const IndexSummary: React.FunctionComponent<Props> = ({
 
         <div
           className={classNames(
-            'fkl-flex fkl-flex-row fkl-flex-1 fkl-justify-between fkl-gap-2',
+            'fkl-flex fkl-flex-row fkl-flex-wrap fkl-flex-1 fkl-justify-between fkl-gap-2',
             'lg:fkl-justify-end lg:fkl-gap-4'
           )}
         >
@@ -82,10 +83,10 @@ export const IndexSummary: React.FunctionComponent<Props> = ({
               onSelect={onTimeRangeSelect}
             />
 
-            {/* <DatePicker
+            <DatePicker
               timeState={timeState}
               onSelect={onCustomTimeRangeSelect}
-            /> */}
+            />
           </div>
         </div>
       </div>

@@ -78,6 +78,6 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
 
 export const IndexDetailed: React.FC<IndexDetailedProps> = (props) => (
   <QueryProvider>
-    <IndexDetailedUI {...props} />
+    <IndexDetailedUI key={props.symbol} {...props} />
   </QueryProvider>
 );
