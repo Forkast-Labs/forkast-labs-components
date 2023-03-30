@@ -17,7 +17,6 @@ const App = () => {
   return (
     <ThemeProvider
       colors={{
-        headline: '#24F1BB',
         background: '#171717',
         text: '#FFFFFF',
       }}
