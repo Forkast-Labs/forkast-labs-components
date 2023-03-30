@@ -18,7 +18,6 @@ export const ThemeProvider: React.FC<Props & ThemeProviderProps> = ({
           background: colors?.background ?? DEFAULT_COLORS.background,
           headline: colors?.headline ?? DEFAULT_COLORS.headline,
           text: colors?.text ?? DEFAULT_COLORS.text,
-          paper: colors?.paper ?? DEFAULT_COLORS.paper,
         },
       }}
     >
