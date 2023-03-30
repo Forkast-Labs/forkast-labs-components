@@ -14,9 +14,14 @@ const getTimeRange = (timeRange: PossibleTimeRanges) => {
 
 export const getApiTime = (timeState: TimeState) => {
   const { timeRange, custom } = timeState;
-  const { startTime, endTime } = timeRange
+  let { startTime, endTime } = timeRange
     ? getTimeRange(timeRange)
     : custom ?? getTimeRange(DEFAULT_TIME_RANGE);
+
+  if (endTime.isAfter(dayjs.utc())) {
+    // TODO: remove this override. It should be done on BE
+    endTime = dayjs.utc();
+  }
 
   return {
     startTime: startTime.utc(),

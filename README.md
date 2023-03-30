@@ -35,6 +35,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 | Props             | Type     | Description                         |
 | ----------------- | -------- | ----------------------------------- |
+| colors.headline   | _string_ | brand color                         |
 | colors.background | _string_ | basic background color for elements |
 | colors.text       | _string_ | text color                          |
 

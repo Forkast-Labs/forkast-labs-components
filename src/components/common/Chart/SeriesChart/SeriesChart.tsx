@@ -158,7 +158,7 @@ export const SeriesChart: React.FunctionComponent<Props> = ({
         <div className="fkl-relative fkl-flex-1">
           {isEmpty ? (
             <div
-              className="fkl-flex fkl-flex-col fkl-content-center fkl-items-center"
+              className="fkl-flex fkl-flex-col fkl-justify-center fkl-items-center"
               style={{ height: chartHeight }}
             >
               <div
