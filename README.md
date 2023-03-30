@@ -41,15 +41,15 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 - `Index`
 
-| Props  | Type     | Description                   |
-| ------ | -------- | ----------------------------- |
-| symbol | _string_ | `fk500` or `fketh` or `fksol` |
+| Props  | Type                        | Description |
+| ------ | --------------------------- | ----------- |
+| symbol | _`fk500`, `fketh`, `fksol`_ | symbol name |
 
 - `IndexDetailed`
 
-| Props  | Type     | Description                   |
-| ------ | -------- | ----------------------------- |
-| symbol | _string_ | `fk500` or `fketh` or `fksol` |
+| Props  | Type                        | Description |
+| ------ | --------------------------- | ----------- |
+| symbol | _`fk500`, `fketh`, `fksol`_ | symbol name |
 
 ## Create a Bug Report
 
