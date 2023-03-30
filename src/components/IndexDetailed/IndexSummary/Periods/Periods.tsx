@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
 import { TIME_RANGE } from '../../../../constants/ui';
 import { useTheme } from '../../../../hooks/useTheme';
 import { PossibleTimeRanges } from '../../../../types/ui';
