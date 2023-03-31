@@ -51,6 +51,12 @@ ReactDOM.render(<App />, document.getElementById('root'));
 | ------ | --------------------------- | ----------- |
 | symbol | _`fk500`, `fketh`, `fksol`_ | symbol name |
 
+## Sign Up for a Free Forkast Labs API Account
+
+To use the React component, you need to sign up for the free Forkast Labs API service. This service delivers high-performance access to the Forkast Labs indexes with up to 250,000 API calls per month. 
+
+It couldn't be simpler: Go to [our developer web site](https://developer.forkastlabs.xyz/) and create your Free developer account. Pass your URL prefix and API keys from your account to the component in your environment, and you're off and running.
+
 ## Create a Bug Report
 
 If you see an error message or run into an issue, please [create bug report](https://github.com/Forkast-Labs/forkast-labs-components/issues/new?assignees=&labels=bug&title=%F0%9F%90%9B+Bug+Report%3A+).
