@@ -36,8 +36,12 @@ export const Summary: React.FunctionComponent<Props> = ({
   onDownload,
 }) => {
   const { colors } = useTheme();
-  if (isLoading || !data) {
+  if (isLoading) {
     return <ContentLoader />;
+  }
+
+  if (!data) {
+    return null;
   }
 
   const { endValue, change, percentChange, high, low } = data;

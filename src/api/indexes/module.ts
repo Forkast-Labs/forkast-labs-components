@@ -21,6 +21,7 @@ import { processResponse } from '../../api/helpers';
 import { HttpClient } from '../../services/HttpClient';
 import { getApiTime } from '../../helpers/ui';
 import { IndexChanges, IndexHistory, IndexSummary } from './types';
+import { BasicResponse } from '../types';
 
 export const fetchIndexesSummaries = async (
   symbol: string,
@@ -30,13 +31,11 @@ export const fetchIndexesSummaries = async (
   const startTimeString = startTime.format(INDEX_DATE_TIME_FORMAT);
   const endTimeString = endTime.format(INDEX_DATE_TIME_FORMAT);
 
-  const url = `${WEB_API_URL}/indexes/summaries/?Symbols=${symbol}&StartTime=${startTimeString}&EndTime=${endTimeString}&InterimValues=true`;
+  const url = `${WEB_API_URL}/v1/indexes/summary?symbols=${symbol}&startAt=${startTimeString}&endAt=${endTimeString}`;
 
-  console.log('[Index info API request]:', url);
+  const response = await HttpClient.get<BasicResponse<IndexSummary[]>>(url);
 
-  const response = await HttpClient.get<IndexSummary[]>(url);
-
-  return processResponse(response, (data) => data);
+  return processResponse(response, (data) => data?.data);
 };
 
 export const fetchIndexesHistory = async (
@@ -46,13 +45,11 @@ export const fetchIndexesHistory = async (
   const { startTime, endTime } = getApiTime(timeState);
   const startTimeString = startTime.format(INDEX_DATE_TIME_FORMAT);
   const endTimeString = endTime.format(INDEX_DATE_TIME_FORMAT);
-  const url = `${WEB_API_URL}/indexes/history/?Symbols=${symbol}&StartTime=${startTimeString}&EndTime=${endTimeString}&InterimValues=true`;
+  const url = `${WEB_API_URL}/v1/indexes/history?symbols=${symbol}&startAt=${startTimeString}&endAt=${endTimeString}`;
 
-  console.log('[Index info API request]:', url);
+  const response = await HttpClient.get<BasicResponse<IndexHistory[]>>(url);
 
-  const response = await HttpClient.get<IndexHistory[]>(url);
-
-  return processResponse(response, (data) => data);
+  return processResponse(response, (data) => data?.data);
 };
 
 export const fetchIndexChanges = async (
@@ -62,13 +59,11 @@ export const fetchIndexChanges = async (
   const { startTime, endTime } = getApiTime(timeState);
   const startTimeString = startTime.format(INDEX_DATE_TIME_FORMAT);
   const endTimeString = endTime.format(INDEX_DATE_TIME_FORMAT);
-  const url = `${WEB_API_URL}/indexes/basis-price-changes/?Symbol=${symbol}&StartTime=${startTimeString}&EndTime=${endTimeString}&NumIncreases=5&NumDecreases=5`;
+  const url = `${WEB_API_URL}/v1/indexes/basis-price-changes?symbol=${symbol}&startAt=${startTimeString}&endAt=${endTimeString}&numIncreases=5&numDecreases=5`;
 
-  console.log('[Change Index info API request]:', url);
+  const response = await HttpClient.get<BasicResponse<IndexChanges>>(url);
 
-  const response = await HttpClient.get<IndexChanges>(url);
-
-  return processResponse(response, (data) => data);
+  return processResponse(response, (data) => data?.data);
 };
 
 export const exportIndexesHistory = async (
@@ -80,10 +75,8 @@ export const exportIndexesHistory = async (
     const formattedStartTime = startTime.format(INDEX_DATE_TIME_FORMAT);
     const formattedEndTime = endTime.format(INDEX_DATE_TIME_FORMAT);
 
-    const url = `${WEB_API_URL}/indexes/csv/history?Symbols=${symbol}&StartTime=${formattedStartTime}&EndTime=${formattedEndTime}&InterimValues=true`;
-    const response = await fetch(url, {
-      headers: new Headers({ 'Content-Type': 'text/csv' }),
-    });
+    const url = `${WEB_API_URL}/v1/indexes/csv/history?symbols=${symbol}&startAt=${formattedStartTime}&endAt=${formattedEndTime}&InterimValues=true`;
+    const response = await HttpClient.get(url, 'text/csv');
 
     response.blob().then((blob) => {
       const url = window.URL.createObjectURL(blob);
