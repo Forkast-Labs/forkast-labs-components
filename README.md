@@ -59,6 +59,13 @@ To use the React component, you need to sign up for the free Forkast Labs API se
 
 It couldn't be simpler: Go to [our developer web site](https://developer.forkastlabs.xyz/) and create your Free developer account. Pass your URL prefix and API keys from your account to the component in your environment, and you're off and running.
 
+## Environment Variables
+
+The following environment variables need to be set in order to use this package:
+
+* _WEB_API_URL_: the URL for the Forkast Labs API service.
+* _BLOBR_KEY_: the API key for the Forkast Labs API service.
+
 ## Create a Bug Report
 
 If you see an error message or run into an issue, please [create bug report](https://github.com/Forkast-Labs/forkast-labs-components/issues/new?assignees=&labels=bug&title=%F0%9F%90%9B+Bug+Report%3A+).
