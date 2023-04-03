@@ -16,7 +16,7 @@
 
 import React from 'react';
 import classNames from 'classnames';
-import { FORKAST_WEB_URL } from '../../../constants/variables';
+import { FORKAST_WEB_URL } from '../../../constants/links';
 import { formatLargeNumber } from '../../../utils/formatting';
 import { IndexSummary } from '../../../api/indexes';
 import { useTheme } from '../../../hooks/useTheme';

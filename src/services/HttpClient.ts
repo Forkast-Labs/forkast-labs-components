@@ -13,30 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { BLOBR_KEY } from '../constants/variables';
 
 export interface HttpResponse<T> extends Response {
   parsedBody?: T;
 }
 
+type SupportedContentTypes = 'application/json' | 'text/csv';
+
 export class HttpClient {
-  static async get<T = any>(url: string): Promise<HttpResponse<T>> {
-    return await this.request<T>('GET', url);
+  static async get<T = any>(
+    url: string,
+    contentType: SupportedContentTypes = 'application/json'
+  ): Promise<HttpResponse<T>> {
+    return await this.request<T>('GET', url, contentType);
   }
 
   private static async request<T>(
     method: string,
-    url: string
+    url: string,
+    contentType: SupportedContentTypes
   ): Promise<HttpResponse<T>> {
     const headers = new Headers();
 
-    headers.set('Content-Type', 'application/json');
+    headers.set('Content-Type', contentType);
+    headers.set('X-BLOBR-KEY', BLOBR_KEY);
 
     const response: HttpResponse<T> = await fetch(url, {
-      headers: headers,
       method: method,
+      headers,
     });
 
-    if (response.status === 200) {
+    if (response.status === 200 && contentType === 'application/json') {
       response.parsedBody = await response.json();
     }
 

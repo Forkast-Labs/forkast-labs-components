@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
-export const WEB_API_URL = process.env.WEB_API_URL;
+export const WEB_API_URL = process.env.WEB_API_URL ?? '';
 
-export const FORKAST_WEB_URL = 'https://forkast.news';
+export const BLOBR_KEY = process.env.BLOBR_KEY ?? '';
+
+if (!WEB_API_URL) {
+  console.error(
+    'WEB_API_URL env missed. Please provide WEB_API_URL environment variable.'
+  );
+}

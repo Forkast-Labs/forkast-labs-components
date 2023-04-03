@@ -16,3 +16,4 @@
 
 export const CRYPTOSLAM = 'https://www.cryptoslam.io';
 export const FORKASTLABS = 'https://www.forkastlabs.xyz';
+export const FORKAST_WEB_URL = 'https://forkast.news';
