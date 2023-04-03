@@ -34,7 +34,7 @@ export class HttpClient {
     url: string,
     contentType: SupportedContentTypes
   ): Promise<HttpResponse<T>> {
-    let headers = new Headers();
+    const headers = new Headers();
 
     headers.set('Content-Type', contentType);
     headers.set('X-BLOBR-KEY', BLOBR_KEY);
