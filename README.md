@@ -1,5 +1,7 @@
 # Forkast Labs components
 
+![Forkastlabs](https://github.com/Forkast-Labs/forkast-labs-components/blob/main/.github/preview.png)
+
 ## Install
 
 ```bash
