@@ -20,6 +20,6 @@ export const BLOBR_KEY = process.env.BLOBR_KEY ?? '';
 
 if (!WEB_API_URL) {
   console.error(
-    'WEB_API_URL env missed. Please provide WEB_API_URL environment varible.'
+    'WEB_API_URL env missed. Please provide WEB_API_URL environment variable.'
   );
 }
