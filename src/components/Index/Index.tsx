@@ -41,7 +41,7 @@ const IndexUI: React.FC<IndexProps> = ({ symbol }) => {
 
   const { data, isLoading, isError, dataUpdatedAt, refetch } =
     useIndexesSummaries({
-      symbol,
+      symbols: [symbol],
       timeState: { timeRange, custom: null },
       shouldRefetch: TIME_WITH_REFETCH.includes(timeRange),
     });

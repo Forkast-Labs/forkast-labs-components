@@ -54,7 +54,7 @@ export const IndexSummary: React.FunctionComponent<Props> = ({
 }) => {
   const { colors } = useTheme();
   const download = () => {
-    exportIndexesHistory(symbol, timeState);
+    exportIndexesHistory([symbol], timeState);
   };
 
   return (

@@ -24,14 +24,16 @@ import { IndexChanges, IndexHistory, IndexSummary } from './types';
 import { BasicResponse } from '../types';
 
 export const fetchIndexesSummaries = async (
-  symbol: string,
+  symbols: string[],
   timeState: TimeState
 ) => {
   const { startTime, endTime } = getApiTime(timeState);
   const startTimeString = startTime.format(INDEX_DATE_TIME_FORMAT);
   const endTimeString = endTime.format(INDEX_DATE_TIME_FORMAT);
 
-  const url = `${WEB_API_URL}/v1/indexes/summary?symbols=${symbol}&startAt=${startTimeString}&endAt=${endTimeString}`;
+  const url = `${WEB_API_URL}/v1/indexes/summary?symbols=${symbols.join(
+    ','
+  )}&startAt=${startTimeString}&endAt=${endTimeString}`;
 
   const response = await HttpClient.get<BasicResponse<IndexSummary[]>>(url);
 
@@ -39,13 +41,15 @@ export const fetchIndexesSummaries = async (
 };
 
 export const fetchIndexesHistory = async (
-  symbol: string,
+  symbols: string[],
   timeState: TimeState
 ) => {
   const { startTime, endTime } = getApiTime(timeState);
   const startTimeString = startTime.format(INDEX_DATE_TIME_FORMAT);
   const endTimeString = endTime.format(INDEX_DATE_TIME_FORMAT);
-  const url = `${WEB_API_URL}/v1/indexes/history?symbols=${symbol}&startAt=${startTimeString}&endAt=${endTimeString}`;
+  const url = `${WEB_API_URL}/v1/indexes/charts?symbols=${symbols.join(
+    ','
+  )}&startAt=${startTimeString}&endAt=${endTimeString}`;
 
   const response = await HttpClient.get<BasicResponse<IndexHistory[]>>(url);
 
@@ -67,7 +71,7 @@ export const fetchIndexChanges = async (
 };
 
 export const exportIndexesHistory = async (
-  symbol: string,
+  symbols: string[],
   timeState: TimeState
 ) => {
   try {
@@ -75,8 +79,14 @@ export const exportIndexesHistory = async (
     const formattedStartTime = startTime.format(INDEX_DATE_TIME_FORMAT);
     const formattedEndTime = endTime.format(INDEX_DATE_TIME_FORMAT);
 
-    const url = `${WEB_API_URL}/v1/indexes/csv/history?symbols=${symbol}&startAt=${formattedStartTime}&endAt=${formattedEndTime}&InterimValues=true`;
+    const url = `${WEB_API_URL}/v1/indexes/csv/history?symbols=${symbols.join(
+      ','
+    )}&startAt=${formattedStartTime}&endAt=${formattedEndTime}`;
     const response = await HttpClient.get(url, 'text/csv');
+
+    if (response.status !== 200) {
+      throw new Error('Failed to load');
+    }
 
     response.blob().then((blob) => {
       const url = window.URL.createObjectURL(blob);
@@ -85,7 +95,9 @@ export const exportIndexesHistory = async (
       a.href = url;
       a.setAttribute(
         'download',
-        `${symbol}(${formattedStartTime} - ${formattedEndTime}) - UTC.csv`
+        `${symbols.join(
+          ','
+        )}(${formattedStartTime} - ${formattedEndTime}) - UTC.csv`
       );
       a.click();
     });

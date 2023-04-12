@@ -29,12 +29,8 @@ export type IndexSummary = {
 
 export type IndexHistory = {
   symbol: string;
-  startTime: string;
-  endTime: string;
-  startValue: number;
-  endValue: number;
-  change: number;
-  percentChange: number;
+  timeAt: string;
+  value: number;
 };
 
 export type IndexChanges = Record<

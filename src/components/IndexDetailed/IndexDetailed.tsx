@@ -34,7 +34,7 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
   const [point, setPoint] = useState<number | null>();
 
   const { data, isLoading, dataUpdatedAt } = useIndexesSummaries({
-    symbol,
+    symbols: [symbol],
     timeState,
     shouldRefetch: TIME_WITH_REFETCH.includes(timeState.timeRange ?? ''),
   });
