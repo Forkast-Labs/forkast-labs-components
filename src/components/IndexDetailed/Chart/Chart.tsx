@@ -34,7 +34,7 @@ type Props = {
 export const Chart: React.FunctionComponent<Props> = React.memo(
   ({ title, symbol, timeState, state, onPointHover }) => {
     const { data: indexHistory, isLoading } = useIndexesHistory({
-      symbol,
+      symbols: [symbol],
       timeState,
     });
 
@@ -46,8 +46,8 @@ export const Chart: React.FunctionComponent<Props> = React.memo(
           {
             lineData:
               indexHistory?.map((item) => ({
-                time: getDateTimeUTCTimestamp(item.startTime),
-                value: item.startValue,
+                time: getDateTimeUTCTimestamp(item.timeAt),
+                value: item.value,
               })) ?? [],
             priceFormat: {
               type: 'price',

@@ -41,7 +41,7 @@ export const Chart: React.FunctionComponent<Props> = ({
   chartHeight = 100,
 }) => {
   const { data, isLoading } = useIndexesHistory({
-    symbol,
+    symbols: [symbol],
     timeState: { timeRange, custom: null },
   });
 
@@ -53,8 +53,8 @@ export const Chart: React.FunctionComponent<Props> = ({
         {
           lineData:
             data?.map((item) => ({
-              time: getDateTimeUTCTimestamp(item.startTime),
-              value: item.startValue,
+              time: getDateTimeUTCTimestamp(item.timeAt),
+              value: item.value,
             })) ?? [],
           priceFormat: {
             type: 'custom',
