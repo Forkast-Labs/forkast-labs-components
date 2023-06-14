@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import classNames from 'classnames';
-import { Dayjs } from 'dayjs';
-import { PossibleTimeRanges, TimeState } from '../../../types/ui';
-import {
-  exportIndexesHistory,
-  IndexSummary as IndexSummaryType,
-} from '../../../api/indexes';
-import { useTheme } from '../../../hooks/useTheme';
-import UserTime from '../../common/UserTime/UserTime';
-import { Periods } from './Periods/Periods';
-import { Summary } from './Summary/Summary';
-import { IosSwitch } from './IosSwitch/IosSwitch';
-import { DatePicker } from './DatePicker/DatePicker';
+import React from "react";
+import classNames from "classnames";
+import { Dayjs } from "dayjs";
+import { PossibleTimeRanges, TimeState } from "../../../types/ui";
+import { IndexSummary as IndexSummaryType } from "../../../api/indexes";
+import { useTheme } from "../../../hooks/useTheme";
+import UserTime from "../../common/UserTime/UserTime";
+import { Periods } from "./Periods/Periods";
+import { Summary } from "./Summary/Summary";
+import { IosSwitch } from "./IosSwitch/IosSwitch";
+import { DatePicker } from "./DatePicker/DatePicker";
 
 type Props = {
-  symbol: string;
   data?: IndexSummaryType[] | null;
   isLoading: boolean;
   dataUpdatedAt: number;
@@ -45,7 +41,6 @@ export const IndexSummary: React.FunctionComponent<Props> = ({
   data,
   isLoading,
   dataUpdatedAt,
-  symbol,
   timeState,
   isTopMoversEnabled,
   onToggle,
@@ -53,9 +48,6 @@ export const IndexSummary: React.FunctionComponent<Props> = ({
   onCustomTimeRangeSelect,
 }) => {
   const { colors } = useTheme();
-  const download = () => {
-    exportIndexesHistory([symbol], timeState);
-  };
 
   return (
     <div className="fkl-flex fkl-flex-col fkl-gap-4">
@@ -63,14 +55,14 @@ export const IndexSummary: React.FunctionComponent<Props> = ({
         <div
           style={{ color: colors.text }}
           className={classNames(
-            'fkl-hidden fkl-font-black fkl-text-[16px] fkl-leading-[20px] fkl-uppercase',
-            'lg:fkl-block'
+            "fkl-hidden fkl-font-black fkl-text-[16px] fkl-leading-[20px] fkl-uppercase",
+            "lg:fkl-block"
           )}
         >
           {isLoading ? (
             <div
               className={
-                'fkl-bg-grey fkl-animate-pulse fkl-rounded-3xl fkl-h-[20px] fkl-w-[100px]'
+                "fkl-bg-grey fkl-animate-pulse fkl-rounded-3xl fkl-h-[20px] fkl-w-[100px]"
               }
             />
           ) : (
@@ -83,8 +75,8 @@ export const IndexSummary: React.FunctionComponent<Props> = ({
 
         <div
           className={classNames(
-            'fkl-flex fkl-flex-row fkl-flex-wrap fkl-flex-1 fkl-justify-between fkl-gap-2',
-            'lg:fkl-justify-end lg:fkl-gap-4'
+            "fkl-flex fkl-flex-row fkl-flex-wrap fkl-flex-1 fkl-justify-between fkl-gap-2",
+            "lg:fkl-justify-end lg:fkl-gap-4"
           )}
         >
           <IosSwitch
@@ -107,7 +99,7 @@ export const IndexSummary: React.FunctionComponent<Props> = ({
         </div>
       </div>
 
-      <Summary data={data?.[0]} isLoading={isLoading} onDownload={download} />
+      <Summary data={data?.[0]} isLoading={isLoading} />
     </div>
   );
 };
