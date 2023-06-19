@@ -26,10 +26,10 @@ import {
   SeriesType,
   TickMarkType,
   UTCTimestamp,
-} from 'lightweight-charts';
-import dayjs from '../../../../utils/dayjs';
-import { businessDayToString } from '../../../../helpers/lightweight-chart';
-import { ChartColors, PriceScaleIds, Trend } from './types';
+} from "lightweight-charts";
+import dayjs from "../../../../utils/dayjs";
+import { businessDayToString } from "../../../../helpers/lightweight-chart";
+import { ChartColors, PriceScaleIds, Trend } from "./types";
 
 export type ChartProps = {
   isRightPriceScaleEnabled?: boolean;
@@ -65,14 +65,14 @@ export const getChartBaseOptions = ({
   watermark: {
     visible: hasWatermark,
     fontSize: 32,
-    horzAlign: 'center',
-    vertAlign: 'center',
+    horzAlign: "center",
+    vertAlign: "center",
     color: watermarkColor,
-    text: 'forkastlabs',
+    text: "forkastlabs",
   },
   layout: {
-    fontFamily: 'Open Sans',
-    textColor: textColor ?? '#4F4F4F',
+    fontFamily: "Open Sans",
+    textColor: textColor ?? "#4F4F4F",
     fontSize,
     ...(backgrouldColor
       ? {
@@ -118,15 +118,15 @@ export const getChartBaseOptions = ({
 
       switch (tick) {
         case 0:
-          return date.format('YYYY');
+          return date.format("YYYY");
         case 1:
-          return date.format('MMM');
+          return date.format("MMM");
         case 2:
-          return date.format('MM/DD');
+          return date.format("MM/DD");
         case 3:
-          return date.format('HH:mm');
+          return date.format("HH:mm");
         case 4:
-          return date.format('HH:mm:ss');
+          return date.format("HH:mm:ss");
       }
     },
   },
@@ -149,7 +149,7 @@ const getLineSeriesBaseConfig = ({
   priceScaleId?: PriceScaleIds;
 }): LineSeriesPartialOptions => ({
   baseLineVisible: false,
-  priceLineColor: '#4F4F4F',
+  priceLineColor: "#4F4F4F",
   lastValueVisible: false,
   priceLineVisible: false,
   crosshairMarkerRadius: 6,
@@ -164,20 +164,20 @@ const getAreaSeriesBaseConfig = ({
   trend,
 }: BaseSeriesOptions): AreaSeriesPartialOptions => ({
   baseLineVisible: false,
-  priceLineColor: '#4F4F4F',
+  priceLineColor: "#4F4F4F",
   lastValueVisible: false,
   priceLineVisible: false,
   crosshairMarkerRadius: 6,
   priceScaleId,
   priceFormat,
   lineWidth: 1,
-  ...(trend === 'negative'
+  ...(trend === "negative"
     ? {
-        topColor: 'rgb(235 51 51 / 40%)',
-        bottomColor: 'rgb(235 125 125 / 0%)',
-        lineColor: '#FD2F2F',
+        topColor: "rgb(235 51 51 / 40%)",
+        bottomColor: "rgb(235 125 125 / 0%)",
+        lineColor: "#FD3939",
       }
-    : {}),
+    : { lineColor: "#44DE6F" }),
 });
 
 export const SERIES_BASE_CONFIG: Record<
