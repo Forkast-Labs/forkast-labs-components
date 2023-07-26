@@ -44,5 +44,5 @@ export const TIME_RANGE_OFFSET: Record<PossibleTimeRanges, () => dayjs.Dayjs> =
     '60d': () => dayjs.utc().add(-60, 'd'),
     '1y': () => dayjs.utc().add(-1, 'y'),
     ytd: () => dayjs.utc(`${dayjs().year()}-01-01`),
-    all: () => dayjs.utc('1980-1-4'),
+    all: () => dayjs.utc('2022-01-01'),
   };

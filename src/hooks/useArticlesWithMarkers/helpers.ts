@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-export const WEB_API_URL = process.env.WEB_API_URL ?? "";
+import { INDEX_DAY_ONLY_FORMAT } from "../../constants/date";
+import dayjs from "../../utils/dayjs";
 
-export const BLOBR_KEY = process.env.BLOBR_KEY ?? "";
+/**
+ * 	We need to convert incoming point to UTC time and return correct key. To do this we need to remove user's offset from time
+ * @param point unix time is user time zone.
+ */
+export const getPointKey = (point: string) => {
+  if (point) {
+    const utcDate = dayjs.utc(point);
 
-if (!WEB_API_URL) {
-  console.error(
-    "WEB_API_URL env missed. Please provide WEB_API_URL environment variable."
-  );
-}
+    const key = utcDate.format(INDEX_DAY_ONLY_FORMAT);
 
-export const WP_API_URL = process.env.WP_API_URL ?? "";
+    return key;
+  }
 
-console.log("process.env.WP_API_URL", process.env.WP_API_URL);
-
-if (!WP_API_URL) {
-  console.error(
-    "WP_API_URL env missed. Please provide WP_API_URL environment variable."
-  );
-}
+  return "";
+};

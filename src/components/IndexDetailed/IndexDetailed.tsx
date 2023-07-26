@@ -14,29 +14,35 @@
  * limitations under the License.
  */
 
-import React, { useCallback, useState } from 'react';
-import { Dayjs } from 'dayjs';
-import { DEFAULT_TIME_STATE, TIME_WITH_REFETCH } from '../../constants/ui';
-import { useIndexesSummaries } from '../../api/indexes';
-import { PossibleTimeRanges, TimeState } from '../../types/ui';
-import { useTheme } from '../../hooks/useTheme';
-import { getChangeState } from '../../helpers/ui';
-import { QueryProvider } from '../../components/common/QueryProvider/QueryProvider';
-import { IndexSummary } from './IndexSummary/IndexSummary';
-import { Chart } from './Chart/Chart';
-import { IndexMovers } from './IndexMovers/IndexMovers';
-import { IndexDetailedProps } from './IndexDetailed.types';
+import React, { useCallback, useEffect, useState } from "react";
+import { Dayjs } from "dayjs";
+import { DEFAULT_TIME_STATE, TIME_WITH_REFETCH } from "../../constants/ui";
+import { useIndexesSummaries } from "../../api/indexes";
+import { PossibleTimeRanges, TimeState } from "../../types/ui";
+import { useTheme } from "../../hooks/useTheme";
+import { getChangeState } from "../../helpers/ui";
+import { QueryProvider } from "../../components/common/QueryProvider/QueryProvider";
+import { IndexSummary } from "./IndexSummary/IndexSummary";
+import { Chart } from "./Chart/Chart";
+import { IndexMovers } from "./IndexMovers/IndexMovers";
+import { IndexDetailedProps } from "./IndexDetailed.types";
+import { News } from "./IndexSummary/News/News";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
   const { colors } = useTheme();
   const [isTopMoversEnabled, setIsTopMoversEnabled] = useState(false);
+  const [isNewsEnabled, setIsNewsEnabled] = useState(false);
   const [timeState, setState] = useState<TimeState>(DEFAULT_TIME_STATE);
   const [point, setPoint] = useState<number | null>();
+  const [pinnedMarkerId, setPinnedMarkerId] = useState<string>();
+  // We should disable news for mobile devices
+  const isNewsAllowed = useMediaQuery(`(min-width: 640px)`);
 
   const { data, isLoading, dataUpdatedAt } = useIndexesSummaries({
     symbols: [symbol],
     timeState,
-    shouldRefetch: TIME_WITH_REFETCH.includes(timeState.timeRange ?? ''),
+    shouldRefetch: TIME_WITH_REFETCH.includes(timeState.timeRange ?? ""),
   });
 
   const onTimeRangeSelect = (timeRange: PossibleTimeRanges) =>
@@ -45,10 +51,24 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
   const onCustomTimeRangeSelect = (startTime: Dayjs, endTime: Dayjs) =>
     setState({ timeRange: null, custom: { startTime, endTime } });
 
-  const makeSwitch = (checked: boolean) => {
-    setIsTopMoversEnabled(checked);
+  const makeNewsSwitch = (checked: boolean) => {
+    setIsNewsEnabled(checked);
 
     if (!checked) {
+      if (pinnedMarkerId) {
+        setPinnedMarkerId(undefined);
+      }
+
+      if (!isTopMoversEnabled) {
+        setPoint(null);
+      }
+    }
+  };
+
+  const makeMoversSwitch = (checked: boolean) => {
+    setIsTopMoversEnabled(checked);
+
+    if (!checked && !isNewsEnabled) {
       setPoint(null);
     }
   };
@@ -59,6 +79,13 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (!isNewsAllowed && isNewsEnabled) {
+      setIsNewsEnabled(false);
+      setPinnedMarkerId(undefined);
+    }
+  }, [isNewsAllowed]);
+
   return (
     <div
       className="fkl-flex fkl-flex-col fkl-gap-4 fkl-py-6"
@@ -68,22 +95,39 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
         data={data}
         isLoading={isLoading}
         dataUpdatedAt={dataUpdatedAt}
-        symbol={symbol}
         timeState={timeState}
         isTopMoversEnabled={isTopMoversEnabled}
-        onToggle={makeSwitch}
+        isNewsEnabled={isNewsEnabled}
+        onTopMoversToggle={makeMoversSwitch}
+        onNewsToggle={makeNewsSwitch}
         onTimeRangeSelect={onTimeRangeSelect}
         onCustomTimeRangeSelect={onCustomTimeRangeSelect}
       />
 
-      <div>
-        <Chart
-          title={data?.[0].name ?? ''}
-          symbol={symbol}
-          state={getChangeState(data?.[0].percentChange ?? 0)}
-          timeState={timeState}
-          onPointHover={isTopMoversEnabled ? pointSelect : undefined}
-        />
+      <div className="fkl-flex fkl-flex-row fkl-max-h-[300px]">
+        <div className="fkl-flex-[2]">
+          <Chart
+            title={data?.[0].name ?? ""}
+            symbol={symbol}
+            state={getChangeState(data?.[0].percentChange ?? 0)}
+            timeState={timeState}
+            isNewsEnabled={isNewsEnabled}
+            onPointHover={
+              isTopMoversEnabled || isNewsEnabled ? pointSelect : undefined
+            }
+            onChartClick={setPinnedMarkerId}
+          />
+        </div>
+
+        {isNewsEnabled ? (
+          <div className="fkl-flex-1">
+            <News
+              symbol={symbol}
+              timeState={timeState}
+              clickedDatePoint={pinnedMarkerId}
+            />
+          </div>
+        ) : null}
       </div>
       {isTopMoversEnabled ? (
         <IndexMovers symbol={symbol} timeState={timeState} point={point} />

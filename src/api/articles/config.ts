@@ -14,22 +14,6 @@
  * limitations under the License.
  */
 
-export const WEB_API_URL = process.env.WEB_API_URL ?? "";
-
-export const BLOBR_KEY = process.env.BLOBR_KEY ?? "";
-
-if (!WEB_API_URL) {
-  console.error(
-    "WEB_API_URL env missed. Please provide WEB_API_URL environment variable."
-  );
-}
-
-export const WP_API_URL = process.env.WP_API_URL ?? "";
-
-console.log("process.env.WP_API_URL", process.env.WP_API_URL);
-
-if (!WP_API_URL) {
-  console.error(
-    "WP_API_URL env missed. Please provide WP_API_URL environment variable."
-  );
-}
+export const TAGS_MAP: Record<string, string> = {
+  // fketh: "10744",
+};

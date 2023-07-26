@@ -25,14 +25,17 @@ import { Periods } from "./Periods/Periods";
 import { Summary } from "./Summary/Summary";
 import { IosSwitch } from "./IosSwitch/IosSwitch";
 import { DatePicker } from "./DatePicker/DatePicker";
+import { Checkbox } from "./Checkbox/Checkbox";
 
 type Props = {
   data?: IndexSummaryType[] | null;
   isLoading: boolean;
   dataUpdatedAt: number;
   timeState: TimeState;
+  isNewsEnabled: boolean;
   isTopMoversEnabled: boolean;
-  onToggle: (value: boolean) => void;
+  onNewsToggle: (value: boolean) => void;
+  onTopMoversToggle: (value: boolean) => void;
   onTimeRangeSelect: (period: PossibleTimeRanges) => void;
   onCustomTimeRangeSelect: (startTime: Dayjs, endTime: Dayjs) => void;
 };
@@ -43,7 +46,9 @@ export const IndexSummary: React.FunctionComponent<Props> = ({
   dataUpdatedAt,
   timeState,
   isTopMoversEnabled,
-  onToggle,
+  isNewsEnabled,
+  onNewsToggle,
+  onTopMoversToggle,
   onTimeRangeSelect,
   onCustomTimeRangeSelect,
 }) => {
@@ -79,10 +84,18 @@ export const IndexSummary: React.FunctionComponent<Props> = ({
             "lg:fkl-justify-end lg:fkl-gap-4"
           )}
         >
+          <div className="fkl-hidden sm:fkl-flex">
+            <Checkbox
+              title="News"
+              checked={isNewsEnabled}
+              onChange={onNewsToggle}
+            />
+          </div>
+
           <IosSwitch
             title="Top 5 Movers"
             checked={isTopMoversEnabled}
-            onChange={onToggle}
+            onChange={onTopMoversToggle}
           />
 
           <div className="fkl-flex fkl-flex-row fkl-gap-2 fkl-items-center">

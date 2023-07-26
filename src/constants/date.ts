@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
-export const INDEX_DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm:00';
+export const INDEX_DATE_TIME_FORMAT = "YYYY-MM-DDTHH:mm:00";
+
+export const INDEX_DAY_ONLY_FORMAT = "YYYY-MM-DDT00:00:00";

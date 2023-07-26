@@ -14,22 +14,28 @@
  * limitations under the License.
  */
 
-export const WEB_API_URL = process.env.WEB_API_URL ?? "";
+import { useQuery } from "react-query";
+import { TimeState } from "../../types/ui";
+import { fetchArticles } from "./module";
 
-export const BLOBR_KEY = process.env.BLOBR_KEY ?? "";
-
-if (!WEB_API_URL) {
-  console.error(
-    "WEB_API_URL env missed. Please provide WEB_API_URL environment variable."
-  );
+export enum QueryKeys {
+  ARTICLES = "articles",
 }
 
-export const WP_API_URL = process.env.WP_API_URL ?? "";
-
-console.log("process.env.WP_API_URL", process.env.WP_API_URL);
-
-if (!WP_API_URL) {
-  console.error(
-    "WP_API_URL env missed. Please provide WP_API_URL environment variable."
+export const useArticles = ({
+  timeState,
+  symbol,
+  isEnabled = true,
+}: {
+  timeState: TimeState;
+  symbol: string;
+  isEnabled?: boolean;
+}) =>
+  useQuery(
+    [QueryKeys.ARTICLES, symbol, timeState],
+    () => fetchArticles(symbol, timeState),
+    {
+      staleTime: Infinity,
+      enabled: isEnabled,
+    }
   );
-}

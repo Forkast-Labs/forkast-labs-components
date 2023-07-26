@@ -20,22 +20,25 @@ import {
   DeepPartial,
   LineData,
   PriceFormat,
-} from 'lightweight-charts';
-import dayjs from '../../../../utils/dayjs';
+  SeriesMarker,
+  Time,
+} from "lightweight-charts";
+import dayjs from "../../../../utils/dayjs";
 
 export enum PriceScaleIds {
-  LEFT = 'left',
-  RIGHT = 'right',
+  LEFT = "left",
+  RIGHT = "right",
 }
 
 export enum ChartColors {
-  BLACK = '#434343',
-  ORANGE = '#F19B10',
-  BLUE = '#7cb5ec',
+  BLACK = "#434343",
+  ORANGE = "#F19B10",
+  BLUE = "#7cb5ec",
 }
 
 export type SeriesData = {
   lineData: LineData[];
+  markers?: SeriesMarker<Time>[];
   trend?: Trend;
   label?: string;
   priceScaleId?: PriceScaleIds;
@@ -43,7 +46,7 @@ export type SeriesData = {
   priceFormat?: DeepPartial<PriceFormat>;
 };
 
-export type Trend = 'positive' | 'negative';
+export type Trend = "positive" | "negative";
 
 export type TooltipCoordinates = {
   x: number;

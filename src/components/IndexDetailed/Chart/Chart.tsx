@@ -14,28 +14,44 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import SeriesChart from '../../../components/common/Chart/SeriesChart/SeriesChart';
-import { ChartTooltip } from '../../../components/common/Chart';
-import { ChangeState, TimeState } from '../../../types/ui';
-import { useIndexesHistory } from '../../../api/indexes';
-import { getDateTimeUTCTimestamp } from '../../../helpers/lightweight-chart';
-import { formatLargeNumber } from '../../../utils/formatting';
-import { DEFAULT_CHART_HEIGHT } from './config';
+import React from "react";
+import SeriesChart from "../../../components/common/Chart/SeriesChart/SeriesChart";
+import { ChangeState, TimeState } from "../../../types/ui";
+import { useIndexesHistory } from "../../../api/indexes";
+import { getDateTimeUTCTimestamp } from "../../../helpers/lightweight-chart";
+import { formatLargeNumber } from "../../../utils/formatting";
+import { DEFAULT_CHART_HEIGHT } from "./config";
+import { ChartTooltip } from "../../common/Chart/ChartTooltip/ChartTooltip";
+import { useArticlesWithMarkers } from "../../../hooks/useArticlesWithMarkers/index";
 
 type Props = {
   title: string;
   symbol: string;
   timeState: TimeState;
   state: ChangeState;
+  isNewsEnabled: boolean;
   onPointHover?: (timestamp: number | null) => void;
+  onChartClick: (markerId?: string) => void;
 };
 
 export const Chart: React.FunctionComponent<Props> = React.memo(
-  ({ title, symbol, timeState, state, onPointHover }) => {
+  ({
+    title,
+    symbol,
+    timeState,
+    isNewsEnabled,
+    state,
+    onPointHover,
+    onChartClick,
+  }) => {
     const { data: indexHistory, isLoading } = useIndexesHistory({
       symbols: [symbol],
       timeState,
+    });
+    const { markers } = useArticlesWithMarkers({
+      symbol,
+      timeState,
+      isNewsEnabled,
     });
 
     return (
@@ -49,12 +65,13 @@ export const Chart: React.FunctionComponent<Props> = React.memo(
                 time: getDateTimeUTCTimestamp(item.timeAt),
                 value: item.value,
               })) ?? [],
+            markers,
             priceFormat: {
-              type: 'price',
+              type: "price",
               minMove: 1,
               precision: 0,
             },
-            trend: state === 'negative' ? 'negative' : 'positive',
+            trend: state === "negative" ? "negative" : "positive",
           },
         ]}
         isLoading={isLoading}
@@ -67,6 +84,7 @@ export const Chart: React.FunctionComponent<Props> = React.memo(
           />
         )}
         onPointHover={onPointHover}
+        onChartClick={(event) => onChartClick(event.hoveredMarkerId)}
       />
     );
   }
