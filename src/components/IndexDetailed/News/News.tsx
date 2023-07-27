@@ -15,10 +15,10 @@
  */
 
 import React, { useEffect, useRef } from "react";
-import dayjs from "../../../../utils/dayjs";
-import { useTheme } from "../../../../hooks/useTheme";
-import { TimeState } from "../../../../types/ui";
-import { useArticlesWithMarkers } from "../../../../hooks/useArticlesWithMarkers";
+import dayjs from "../../../utils/dayjs";
+import { useTheme } from "../../../hooks/useTheme";
+import { TimeState } from "../../../types/ui";
+import { useArticlesWithMarkers } from "../../../hooks/useArticlesWithMarkers";
 
 type Props = {
   symbol: string;
@@ -89,6 +89,7 @@ export const News: React.FC<Props> = ({
                     key={article.id}
                     href={article.link}
                     className="fkl-flex fkl-flex-row fkl-gap-4 hover:fkl-text-[#6842FF]"
+                    target="_blank"
                   >
                     <div className="fkl-w-[100px] fkl-h-[60px] fkl-relative fkl-shrink-0 fkl-overflow-hidden">
                       <img

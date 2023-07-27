@@ -22,11 +22,12 @@ import { PossibleTimeRanges, TimeState } from "../../types/ui";
 import { useTheme } from "../../hooks/useTheme";
 import { getChangeState } from "../../helpers/ui";
 import { QueryProvider } from "../../components/common/QueryProvider/QueryProvider";
-import { IndexSummary } from "./IndexSummary/IndexSummary";
+import { Control } from "./Control/Control";
 import { Chart } from "./Chart/Chart";
 import { IndexMovers } from "./IndexMovers/IndexMovers";
 import { IndexDetailedProps } from "./IndexDetailed.types";
-import { News } from "./IndexSummary/News/News";
+import { Summary } from "./Summary/Summary";
+import { News } from "./News/News";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
@@ -37,7 +38,7 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
   const [point, setPoint] = useState<number | null>();
   const [pinnedMarkerId, setPinnedMarkerId] = useState<string>();
   // We should disable news for mobile devices
-  const isNewsAllowed = useMediaQuery(`(min-width: 640px)`);
+  const isNewsAllowed = useMediaQuery(`(min-width: 1024px)`);
 
   const { data, isLoading, dataUpdatedAt } = useIndexesSummaries({
     symbols: [symbol],
@@ -91,43 +92,48 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
       className="fkl-flex fkl-flex-col fkl-gap-4 fkl-py-6"
       style={{ backgroundColor: colors.background }}
     >
-      <IndexSummary
-        data={data}
-        isLoading={isLoading}
-        dataUpdatedAt={dataUpdatedAt}
-        timeState={timeState}
-        isTopMoversEnabled={isTopMoversEnabled}
-        isNewsEnabled={isNewsEnabled}
-        onTopMoversToggle={makeMoversSwitch}
-        onNewsToggle={makeNewsSwitch}
-        onTimeRangeSelect={onTimeRangeSelect}
-        onCustomTimeRangeSelect={onCustomTimeRangeSelect}
-      />
+      <div className="fkl-flex fkl-flex-col fkl-gap-4">
+        <Control
+          isLoading={isLoading}
+          dataUpdatedAt={dataUpdatedAt}
+          timeState={timeState}
+          isTopMoversEnabled={isTopMoversEnabled}
+          isNewsEnabled={isNewsEnabled}
+          onTopMoversToggle={makeMoversSwitch}
+          onNewsToggle={makeNewsSwitch}
+          onTimeRangeSelect={onTimeRangeSelect}
+          onCustomTimeRangeSelect={onCustomTimeRangeSelect}
+        />
 
-      <div className="fkl-flex fkl-flex-row fkl-max-h-[300px]">
-        <div className="fkl-flex-[2]">
-          <Chart
-            title={data?.[0].name ?? ""}
-            symbol={symbol}
-            state={getChangeState(data?.[0].percentChange ?? 0)}
-            timeState={timeState}
-            isNewsEnabled={isNewsEnabled}
-            onPointHover={
-              isTopMoversEnabled || isNewsEnabled ? pointSelect : undefined
-            }
-            onChartClick={setPinnedMarkerId}
-          />
-        </div>
+        <div className="fkl-flex fkl-flex-row fkl-max-h-[393px]">
+          <div className="fkl-flex-[2] fkl-flex fkl-flex-col fkl-gap-4">
+            <Summary data={data?.[0]} isLoading={isLoading} />
 
-        {isNewsEnabled ? (
-          <div className="fkl-flex-1">
-            <News
-              symbol={symbol}
-              timeState={timeState}
-              clickedDatePoint={pinnedMarkerId}
-            />
+            <div>
+              <Chart
+                title={data?.[0].name ?? ""}
+                symbol={symbol}
+                state={getChangeState(data?.[0].percentChange ?? 0)}
+                timeState={timeState}
+                isNewsEnabled={isNewsEnabled}
+                onPointHover={
+                  isTopMoversEnabled || isNewsEnabled ? pointSelect : undefined
+                }
+                onChartClick={setPinnedMarkerId}
+              />
+            </div>
           </div>
-        ) : null}
+
+          {isNewsEnabled ? (
+            <div className="fkl-flex-1">
+              <News
+                symbol={symbol}
+                timeState={timeState}
+                clickedDatePoint={pinnedMarkerId}
+              />
+            </div>
+          ) : null}
+        </div>
       </div>
       {isTopMoversEnabled ? (
         <IndexMovers symbol={symbol} timeState={timeState} point={point} />

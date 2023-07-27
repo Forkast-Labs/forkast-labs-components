@@ -66,7 +66,7 @@ export const useArticlesWithMarkers = ({
       Object.keys(articlesByDay).map((datepoint) => ({
         time: getDateTimeUTCTimestamp(datepoint),
         position: "aboveBar",
-        color: "#736E6E",
+        color: "#FFFFFF",
         shape: "circle",
         id: datepoint,
       })),

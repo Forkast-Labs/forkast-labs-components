@@ -16,11 +16,11 @@
 
 import React from 'react';
 import classNames from 'classnames';
-import { getChangeState } from '../../../../../helpers/ui';
+import { getChangeState } from '../../../../helpers/ui';
 import {
   formatePercentage,
   formatLargeNumber,
-} from '../../../../../utils/formatting';
+} from '../../../../utils/formatting';
 
 type Props = {
   change: number;

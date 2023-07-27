@@ -16,11 +16,11 @@
 
 import React from "react";
 import classNames from "classnames";
-import { IndexSummary } from "../../../../api/indexes";
-import { formatLargeNumber } from "../../../../utils/formatting";
-import { useTheme } from "../../../../hooks/useTheme";
-import { Download } from "../../../common/ui/icons";
-import { Triangle } from "../../../../components/common/Triangle/Triangle";
+import { IndexSummary } from "../../../api/indexes";
+import { formatLargeNumber } from "../../../utils/formatting";
+import { useTheme } from "../../../hooks/useTheme";
+import { Download } from "../../common/ui/icons";
+import { Triangle } from "../../common/Triangle/Triangle";
 import { ContentLoader } from "./ContentLoader/ContentLoader";
 import { PriceChange } from "./PriceChange/PriceChange";
 
