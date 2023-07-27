@@ -29,12 +29,6 @@ export const Checkbox: React.FC<Props> = ({ title, checked, onChange }) => {
 
   return (
     <label className="fkl-flex fkl-relative fkl-items-center fkl-space-x-4 fkl-cursor-pointer fkl-shrink-0">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={(event) => onChange(event.target.checked)}
-        className={classNames("fkl-cursor-pointer")}
-      />
       <span
         style={{ color: colors.text }}
         className={classNames(
@@ -44,6 +38,12 @@ export const Checkbox: React.FC<Props> = ({ title, checked, onChange }) => {
       >
         {title}
       </span>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(event) => onChange(event.target.checked)}
+        className={classNames("fkl-cursor-pointer checkbox checkbox-primary")}
+      />
     </label>
   );
 };

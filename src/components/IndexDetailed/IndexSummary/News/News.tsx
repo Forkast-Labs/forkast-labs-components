@@ -78,7 +78,7 @@ export const News: React.FC<Props> = ({
       ) : (
         Object.entries(news).map(([datepoint, artiles]) => (
           <div key={datepoint} data-point={datepoint}>
-            <div>{dayjs(datepoint).format("DD MMM, YYYY")}</div>
+            <div>{dayjs(datepoint).format("MMM DD, YYYY")}</div>
 
             <div className="fkl-flex fkl-flex-col fkl-gap-6 fkl-py-5">
               {artiles?.map((article) => {
