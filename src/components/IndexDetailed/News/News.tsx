@@ -19,6 +19,7 @@ import dayjs from "../../../utils/dayjs";
 import { useTheme } from "../../../hooks/useTheme";
 import { TimeState } from "../../../types/ui";
 import { useArticlesWithMarkers } from "../../../hooks/useArticlesWithMarkers";
+import { Loader } from "../../common/Loader/Loader";
 
 type Props = {
   symbol: string;
@@ -71,7 +72,11 @@ export const News: React.FC<Props> = ({
         <hr />
       </div>
 
-      {isEmpty ? (
+      {isLoading ? (
+        <div className="fkl-flex fkl-items-center fkl-justify-center fkl-flex-1">
+          <Loader />
+        </div>
+      ) : isEmpty ? (
         <div className="fkl-flex fkl-items-center fkl-justify-center fkl-flex-1">
           <div>No news for selected time state</div>
         </div>

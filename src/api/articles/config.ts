@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-export const TAGS_MAP: Record<string, string> = {
-  // fketh: "10744",
-};
+import { WP_INDEX_TAGS } from "../../constants/variables";
+
+export const TAGS_MAP: Record<string, string[]> = WP_INDEX_TAGS;
