@@ -11,16 +11,16 @@ npm install forkast-labs-components
 ## Example
 
 ```tsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Index, ThemeProvider } from 'forkast-labs-package';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Index, ThemeProvider } from "forkast-labs-package";
 
 const App = () => {
   return (
     <ThemeProvider
       colors={{
-        background: '#171717',
-        text: '#FFFFFF',
+        background: "#171717",
+        text: "#FFFFFF",
       }}
     >
       <Index symbol={indexName} />
@@ -28,7 +28,7 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 ## Components
@@ -55,7 +55,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 ## Sign Up for a Free Forkast Labs API Account
 
-To use the React component, you need to sign up for the free Forkast Labs API service. This service delivers high-performance access to the Forkast Labs indexes with up to 250,000 API calls per month. 
+To use the React component, you need to sign up for the free Forkast Labs API service. This service delivers high-performance access to the Forkast Labs indexes with up to 250,000 API calls per month.
 
 It couldn't be simpler: Go to [our developer web site](https://developer.forkastlabs.xyz/) and create your Free developer account. Pass your URL prefix and API keys from your account to the component in your environment, and you're off and running.
 
@@ -63,8 +63,10 @@ It couldn't be simpler: Go to [our developer web site](https://developer.forkast
 
 The following environment variables need to be set in order to use this package:
 
-* _WEB_API_URL_: the URL for the Forkast Labs API service.
-* _BLOBR_KEY_: the API key for the Forkast Labs API service.
+- _WEB_API_URL_: the URL for the Forkast Labs API service.
+- _BLOBR_KEY_: the API key for the Forkast Labs API service.
+- _WP_API_URL_: the WordPress API url.
+- _WP_INDEX_TAGS_: Tags map between index and WordPress tag ids.
 
 ## Create a Bug Report
 

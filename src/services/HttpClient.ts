@@ -13,38 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { BLOBR_KEY } from '../constants/variables';
+import { BLOBR_KEY } from "../constants/variables";
 
 export interface HttpResponse<T> extends Response {
   parsedBody?: T;
 }
 
-type SupportedContentTypes = 'application/json' | 'text/csv';
+type SupportedContentTypes = "application/json" | "text/csv";
 
 export class HttpClient {
   static async get<T = any>(
     url: string,
-    contentType: SupportedContentTypes = 'application/json'
+    contentType: SupportedContentTypes = "application/json",
+    skipBlobr: boolean = false
   ): Promise<HttpResponse<T>> {
-    return await this.request<T>('GET', url, contentType);
+    return await this.request<T>("GET", url, contentType, skipBlobr);
   }
 
   private static async request<T>(
     method: string,
     url: string,
-    contentType: SupportedContentTypes
+    contentType: SupportedContentTypes,
+    skipBlobr = false
   ): Promise<HttpResponse<T>> {
     const headers = new Headers();
 
-    headers.set('Content-Type', contentType);
-    headers.set('X-BLOBR-KEY', BLOBR_KEY);
+    headers.set("Content-Type", contentType);
+
+    if (!skipBlobr) {
+      headers.set("X-BLOBR-KEY", BLOBR_KEY);
+    }
 
     const response: HttpResponse<T> = await fetch(url, {
       method: method,
       headers,
     });
 
-    if (response.status === 200 && contentType === 'application/json') {
+    if (response.status === 200 && contentType === "application/json") {
       response.parsedBody = await response.json();
     }
 

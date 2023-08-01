@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-export const INDEX_DATE_TIME_FORMAT = "YYYY-MM-DDTHH:mm:00";
+import { WP_INDEX_TAGS } from "../../constants/variables";
 
-export const INDEX_DAY_ONLY_FORMAT = "YYYY-MM-DDT00:00:00";
+export const TAGS_MAP: Record<string, string[]> = WP_INDEX_TAGS;

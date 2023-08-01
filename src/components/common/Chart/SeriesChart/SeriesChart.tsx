@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   createChart,
   ISeriesApi,
   MouseEventParams,
   SeriesType,
   UTCTimestamp,
-} from 'lightweight-charts';
+} from "lightweight-charts";
 import {
   buildDateFromTime,
   getPreviousYear,
-} from '../../../../helpers/lightweight-chart';
-import { useTheme } from '../../../../hooks/useTheme';
-import { Loader } from '../../../../components/common/Loader/Loader';
+} from "../../../../helpers/lightweight-chart";
+import { useTheme } from "../../../../hooks/useTheme";
+import { Loader } from "../../../../components/common/Loader/Loader";
 import {
   SERIES_BASE_CONFIG,
   getChartBaseOptions,
   TITLE_WIDTH,
   ChartProps,
-} from './configs';
-import { buildTooltipData } from './helpers';
-import { ChartTooltip } from './components/ChartTooltip/ChartTooltip';
-import { PriceScaleIds, SeriesData, TooltipData, TooltipInfo } from './types';
+} from "./configs";
+import { buildTooltipData } from "./helpers";
+import { ChartTooltip } from "./components/ChartTooltip/ChartTooltip";
+import { PriceScaleIds, SeriesData, TooltipData, TooltipInfo } from "./types";
 
 type Props = {
   data: SeriesData[] | undefined;
@@ -44,24 +44,27 @@ type Props = {
   title?: string;
   secondTitle?: string;
   type?: SeriesType;
-  defaultRange?: 'content' | 'year';
+  defaultRange?: "content" | "year";
   chartHeight?: number;
   hasWatermark?: boolean;
   tooltipComponent: React.FunctionComponent<Partial<TooltipData>>;
   chartOptions?: ChartProps;
   onPointHover?: (timestamp: number | null) => void;
+  onPinChange?: (markerId: string | null) => void;
+  onChartClick?: (event: MouseEventParams) => void;
 };
 
 export const SeriesChart: React.FunctionComponent<Props> = ({
   data,
   isLoading,
-  type = 'Line',
-  defaultRange = 'content',
+  type = "Line",
+  defaultRange = "content",
   chartHeight = 278,
   chartOptions,
   tooltipComponent,
   hasWatermark = false,
   onPointHover,
+  onChartClick,
 }) => {
   const { colors } = useTheme();
   const chartContainerRef = useRef<HTMLDivElement>(null);
@@ -84,7 +87,7 @@ export const SeriesChart: React.FunctionComponent<Props> = ({
           isRightPriceScaleEnabled: shouldRenderRightPriceScale,
           backgrouldColor: colors.background,
           textColor: colors.text,
-          watermarkColor: 'rgb(226 226 226 / 20%)',
+          watermarkColor: "rgb(226 226 226 / 20%)",
           hasWatermark,
           ...chartOptions,
         }),
@@ -94,7 +97,7 @@ export const SeriesChart: React.FunctionComponent<Props> = ({
       const chartSeries = data?.reduce(
         (result: ISeriesApi<SeriesType>[], seriesData) => {
           const newSeries = chart[
-            type === 'Area' ? 'addAreaSeries' : 'addLineSeries'
+            type === "Area" ? "addAreaSeries" : "addLineSeries"
           ](
             SERIES_BASE_CONFIG[type]({
               priceFormat: seriesData.priceFormat,
@@ -106,14 +109,20 @@ export const SeriesChart: React.FunctionComponent<Props> = ({
 
           newSeries.setData(seriesData.lineData);
 
+          if (seriesData.markers?.length) {
+            newSeries.setMarkers(
+              [...seriesData.markers].sort((a: any, b: any) => a.time - b.time)
+            );
+          }
+
           return [...result, newSeries];
         },
         []
       );
 
-      if (defaultRange === 'content') {
+      if (defaultRange === "content") {
         chart.timeScale().fitContent();
-      } else if (defaultRange === 'year') {
+      } else if (defaultRange === "year") {
         const lastDataTime =
           data?.[0]?.lineData?.[data?.[0]?.lineData.length - 1]?.time;
 
@@ -146,17 +155,25 @@ export const SeriesChart: React.FunctionComponent<Props> = ({
           )
         );
 
-        if (onPointHover && typeof event.time === 'number') {
+        if (onPointHover && typeof event.time === "number") {
           onPointHover(event.time);
         }
       };
 
+      const onClick = (event: MouseEventParams) => {
+        if (onChartClick) {
+          onChartClick(event);
+        }
+      };
+
+      window.addEventListener("resize", handleResize);
       chart.subscribeCrosshairMove(onCrosshairMove);
-      window.addEventListener('resize', handleResize);
+      chart.subscribeClick(onClick);
 
       return () => {
-        window.removeEventListener('resize', handleResize);
+        window.removeEventListener("resize", handleResize);
         chart.unsubscribeCrosshairMove(onCrosshairMove);
+        chart.unsubscribeClick(onClick);
 
         // When chart data rebuild - we need to reset hover data
         if (onPointHover) {

@@ -14,6 +14,21 @@
  * limitations under the License.
  */
 
-export const INDEX_DATE_TIME_FORMAT = "YYYY-MM-DDTHH:mm:00";
+import { INDEX_DAY_ONLY_FORMAT } from "../../constants/date";
+import dayjs from "../../utils/dayjs";
 
-export const INDEX_DAY_ONLY_FORMAT = "YYYY-MM-DDT00:00:00";
+/**
+ * 	We need to convert incoming point to UTC time and return correct key. To do this we need to remove user's offset from time
+ * @param point unix time is user time zone.
+ */
+export const getPointKey = (point: string) => {
+  if (point) {
+    const utcDate = dayjs.utc(point);
+
+    const key = utcDate.format(INDEX_DAY_ONLY_FORMAT);
+
+    return key;
+  }
+
+  return "";
+};

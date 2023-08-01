@@ -14,12 +14,26 @@
  * limitations under the License.
  */
 
-export const WEB_API_URL = process.env.WEB_API_URL ?? '';
+export const WEB_API_URL = process.env.WEB_API_URL ?? "";
 
-export const BLOBR_KEY = process.env.BLOBR_KEY ?? '';
+export const BLOBR_KEY = process.env.BLOBR_KEY ?? "";
 
 if (!WEB_API_URL) {
   console.error(
-    'WEB_API_URL env missed. Please provide WEB_API_URL environment variable.'
+    "WEB_API_URL env missed. Please provide WEB_API_URL environment variable."
   );
+}
+
+export const WP_API_URL = process.env.WP_API_URL ?? "";
+
+export const WP_INDEX_TAGS = JSON.parse(process.env.WP_INDEX_TAGS ?? "{}");
+
+if (!WP_API_URL) {
+  console.error(
+    "WP_API_URL env missed. Please provide WP_API_URL environment variable."
+  );
+}
+
+if (!Object.keys(WP_INDEX_TAGS)) {
+  console.warn("WP_INDEX_TAGS not defined. Used empty object.");
 }

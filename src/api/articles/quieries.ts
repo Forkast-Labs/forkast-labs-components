@@ -14,6 +14,28 @@
  * limitations under the License.
  */
 
-export const INDEX_DATE_TIME_FORMAT = "YYYY-MM-DDTHH:mm:00";
+import { useQuery } from "react-query";
+import { TimeState } from "../../types/ui";
+import { fetchArticles } from "./module";
 
-export const INDEX_DAY_ONLY_FORMAT = "YYYY-MM-DDT00:00:00";
+export enum QueryKeys {
+  ARTICLES = "articles",
+}
+
+export const useArticles = ({
+  timeState,
+  symbol,
+  isEnabled = true,
+}: {
+  timeState: TimeState;
+  symbol: string;
+  isEnabled?: boolean;
+}) =>
+  useQuery(
+    [QueryKeys.ARTICLES, symbol, timeState],
+    () => fetchArticles(symbol, timeState),
+    {
+      staleTime: Infinity,
+      enabled: isEnabled,
+    }
+  );
