@@ -59,7 +59,7 @@ export const News: React.FC<Props> = React.memo(
     return (
       <div
         ref={ref}
-        className="fkl-px-5 fkl-flex fkl-flex-col fkl-gap-2 fkl-overflow-scroll fkl-h-full fkl-relative"
+        className="fkl-px-5 fkl-flex fkl-flex-col fkl-gap-2 fkl-overflow-auto fkl-h-full fkl-relative"
         style={{ color: colors.text }}
       >
         <div

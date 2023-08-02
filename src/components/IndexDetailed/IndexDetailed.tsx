@@ -127,9 +127,7 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
                 timeState={timeState}
                 isNewsEnabled={isNewsEnabled}
                 hoveredDatePoint={hoveredDatePoint}
-                onPointHover={
-                  isTopMoversEnabled || isNewsEnabled ? pointSelect : undefined
-                }
+                onPointHover={isTopMoversEnabled ? pointSelect : undefined}
                 onChartClick={setClickedDatePoint}
               />
             </div>
