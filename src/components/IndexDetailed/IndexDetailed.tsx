@@ -36,7 +36,8 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
   const [isNewsEnabled, setIsNewsEnabled] = useState(false);
   const [timeState, setState] = useState<TimeState>(DEFAULT_TIME_STATE);
   const [point, setPoint] = useState<number | null>();
-  const [pinnedMarkerId, setPinnedMarkerId] = useState<string>();
+  const [clickedDatePoint, setClickedDatePoint] = useState<string>();
+  const [hoveredDatePoint, setHoveredDatepoint] = useState<string>();
   // We should disable news for mobile devices
   const isNewsAllowed = useMediaQuery(`(min-width: 1024px)`);
 
@@ -56,8 +57,8 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
     setIsNewsEnabled(checked);
 
     if (!checked) {
-      if (pinnedMarkerId) {
-        setPinnedMarkerId(undefined);
+      if (clickedDatePoint) {
+        setClickedDatePoint(undefined);
       }
 
       if (!isTopMoversEnabled) {
@@ -80,10 +81,19 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
     }
   }, []);
 
+  const hoverNews = useCallback(
+    (datePoint?: string) => {
+      if (hoveredDatePoint !== datePoint) {
+        setHoveredDatepoint(datePoint);
+      }
+    },
+    [hoveredDatePoint]
+  );
+
   useEffect(() => {
     if (!isNewsAllowed && isNewsEnabled) {
       setIsNewsEnabled(false);
-      setPinnedMarkerId(undefined);
+      setClickedDatePoint(undefined);
     }
   }, [isNewsAllowed]);
 
@@ -116,10 +126,9 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
                 state={getChangeState(data?.[0].percentChange ?? 0)}
                 timeState={timeState}
                 isNewsEnabled={isNewsEnabled}
-                onPointHover={
-                  isTopMoversEnabled || isNewsEnabled ? pointSelect : undefined
-                }
-                onChartClick={setPinnedMarkerId}
+                hoveredDatePoint={hoveredDatePoint}
+                onPointHover={isTopMoversEnabled ? pointSelect : undefined}
+                onChartClick={setClickedDatePoint}
               />
             </div>
           </div>
@@ -129,7 +138,8 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
               <News
                 symbol={symbol}
                 timeState={timeState}
-                clickedDatePoint={pinnedMarkerId}
+                clickedDatePoint={clickedDatePoint}
+                onNewsHover={hoverNews}
               />
             </div>
           ) : null}

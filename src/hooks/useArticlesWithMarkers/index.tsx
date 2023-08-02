@@ -26,10 +26,12 @@ export const useArticlesWithMarkers = ({
   symbol,
   timeState,
   isNewsEnabled,
+  hoveredDatePoint,
 }: {
   symbol: string;
   timeState: TimeState;
   isNewsEnabled: boolean;
+  hoveredDatePoint?: string;
 }) => {
   const { data: articles, isLoading } = useArticles({
     symbol,
@@ -66,11 +68,11 @@ export const useArticlesWithMarkers = ({
       Object.keys(articlesByDay).map((datepoint) => ({
         time: getDateTimeUTCTimestamp(datepoint),
         position: "aboveBar",
-        color: "#FFFFFF",
-        shape: "circle",
+        color: hoveredDatePoint === datepoint ? "#F8EE80" : "#FFFFFF",
+        shape: hoveredDatePoint === datepoint ? "arrowDown" : "circle",
         id: datepoint,
       })),
-    [articlesByDay]
+    [articlesByDay, hoveredDatePoint]
   );
 
   return { articlesByDay, markers: isNewsEnabled ? markers : [], isLoading };

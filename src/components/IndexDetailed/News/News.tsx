@@ -25,12 +25,13 @@ type Props = {
   symbol: string;
   timeState: TimeState;
   clickedDatePoint?: string;
+  onNewsHover: (datePoint?: string) => void;
 };
 
 const HEADER_OFFSET = 53;
 
 export const News: React.FC<Props> = React.memo(
-  ({ symbol, timeState, clickedDatePoint }) => {
+  ({ symbol, timeState, clickedDatePoint, onNewsHover }) => {
     const ref = useRef<HTMLDivElement>(null);
     const { articlesByDay: news, isLoading } = useArticlesWithMarkers({
       symbol,
@@ -58,7 +59,7 @@ export const News: React.FC<Props> = React.memo(
     return (
       <div
         ref={ref}
-        className="fkl-px-5 fkl-flex fkl-flex-col fkl-gap-2 fkl-overflow-scroll fkl-h-full fkl-relative"
+        className="fkl-px-5 fkl-flex fkl-flex-col fkl-gap-2 fkl-overflow-auto fkl-h-full fkl-relative"
         style={{ color: colors.text }}
       >
         <div
@@ -79,7 +80,12 @@ export const News: React.FC<Props> = React.memo(
           </div>
         ) : (
           Object.entries(news).map(([datepoint, artiles]) => (
-            <div key={datepoint} data-point={datepoint}>
+            <div
+              key={datepoint}
+              data-point={datepoint}
+              onMouseEnter={() => onNewsHover(datepoint)}
+              onMouseLeave={() => onNewsHover(undefined)}
+            >
               <div>{dayjs(datepoint).format("MMM DD, YYYY")}</div>
 
               <div className="fkl-flex fkl-flex-col fkl-gap-6 fkl-py-5">

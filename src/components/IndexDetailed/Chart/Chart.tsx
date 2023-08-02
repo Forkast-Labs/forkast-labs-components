@@ -29,6 +29,7 @@ type Props = {
   symbol: string;
   timeState: TimeState;
   state: ChangeState;
+  hoveredDatePoint?: string;
   isNewsEnabled: boolean;
   onPointHover?: (timestamp: number | null) => void;
   onChartClick: (markerId?: string) => void;
@@ -39,6 +40,7 @@ export const Chart: React.FunctionComponent<Props> = React.memo(
     title,
     symbol,
     timeState,
+    hoveredDatePoint,
     isNewsEnabled,
     state,
     onPointHover,
@@ -51,6 +53,7 @@ export const Chart: React.FunctionComponent<Props> = React.memo(
     const { markers } = useArticlesWithMarkers({
       symbol,
       timeState,
+      hoveredDatePoint,
       isNewsEnabled,
     });
 
