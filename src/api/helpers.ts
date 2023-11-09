@@ -19,7 +19,7 @@ import {
   NOT_FOUND,
   DATA_MISSED_CODE,
 } from '../errors/api-error';
-import { HttpResponse } from '../services/HttpClient';
+import { HttpResponse } from '../services/ApiClient';
 
 export const processResponse = <T, R>(
   response: HttpResponse<T>,

@@ -97,6 +97,8 @@ const IndexDetailedUI: React.FC<IndexDetailedProps> = ({ symbol }) => {
     }
   }, [isNewsAllowed]);
 
+  console.log('detailed index')
+
   return (
     <div
       className="fkl-flex fkl-flex-col fkl-gap-4 fkl-py-6"
