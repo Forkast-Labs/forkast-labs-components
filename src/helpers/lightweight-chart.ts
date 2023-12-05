@@ -19,8 +19,8 @@ import {
   BusinessDay,
   Time,
   UTCTimestamp,
-} from 'lightweight-charts';
-import dayjs from '../utils/dayjs';
+} from "lightweight-charts";
+import dayjs from "../utils/dayjs";
 
 export const businessDayToString = ({ year, month, day }: BusinessDay) =>
   dayjs(new Date(year, month - 1, day));
@@ -31,19 +31,21 @@ export const buildDateFromTime = (time: Time) =>
 export const getPreviousYear = (time: Time) => {
   const date = buildDateFromTime(time);
 
-  return dayjs(date).set('year', date.get('year') - 1);
+  return dayjs(date).set("year", date.get("year") - 1);
 };
 
 export const getDateTimeUTCTimestamp = (unixDateString: string) => {
-  const localeDate = dayjs.utc(unixDateString).local();
+  const offset = new Date().getTimezoneOffset();
+  const date = new Date(unixDateString);
+  const localeDate = dayjs(date.setMinutes(date.getMinutes() + -1 * offset));
 
   return (Date.UTC(
-    localeDate.get('year'),
-    localeDate.get('M'),
-    localeDate.get('D'),
-    localeDate.get('h'),
-    localeDate.get('m'),
-    localeDate.get('s'),
-    localeDate.get('ms')
+    localeDate.get("year"),
+    localeDate.get("M"),
+    localeDate.get("D"),
+    localeDate.get("h"),
+    localeDate.get("m"),
+    localeDate.get("s"),
+    localeDate.get("ms")
   ) / 1000) as UTCTimestamp;
 };
