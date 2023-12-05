@@ -16,7 +16,7 @@
 
 export const WEB_API_URL = process.env.WEB_API_URL ?? "";
 
-export const BLOBR_KEY = process.env.BLOBR_KEY ?? "";
+export const API_KEY = process.env.API_KEY ?? "";
 
 if (!WEB_API_URL) {
   console.error(

@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import { WP_API_URL } from "../../constants/variables";
 import { INDEX_DATE_TIME_FORMAT } from "../../constants/date";
 import { TimeState } from "../../types/ui";
 import { processResponse } from "../../api/helpers";
-import { HttpClient } from "../../services/HttpClient";
+import { WPClient } from "../../services/WPClient";
 import { getApiTime } from "../../helpers/ui";
 import { Article } from "./types";
 import { TAGS_MAP } from "./config";
@@ -32,12 +31,8 @@ export const fetchArticles = async (symbol: string, timeState: TimeState) => {
     ? TAGS_MAP[symbol].reduce((result, tag) => `${result}&tags=${tag}`, "")
     : "";
 
-  const url = `${WP_API_URL}/wp-json/wp/v2/posts?after=${startTimeString}&before=${endTimeString}${tagsQuery}&per_page=100&offset=0&_embed=wp:featuredmedia&_fields=_links.wp:featuredmedia,_embedded,id,date,excerpt,link,title`;
-
-  const response = await HttpClient.get<Article[]>(
-    url,
-    "application/json",
-    true
+  const response = await WPClient.get<Article[]>(
+    `wp-json/wp/v2/posts?after=${startTimeString}&before=${endTimeString}${tagsQuery}&per_page=100&offset=0&_embed=wp:featuredmedia&_fields=_links.wp:featuredmedia,_embedded,id,date,excerpt,link,title`
   );
 
   return processResponse(response, (data) => data ?? []);

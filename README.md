@@ -64,7 +64,7 @@ It couldn't be simpler: Go to [our developer web site](https://developer.forkast
 The following environment variables need to be set in order to use this package:
 
 - _WEB_API_URL_: the URL for the Forkast Labs API service.
-- _BLOBR_KEY_: the API key for the Forkast Labs API service.
+- _API_KEY_: the API key for the Forkast Labs API service.
 - _WP_API_URL_: the WordPress API url.
 - _WP_INDEX_TAGS_: Tags map between index and WordPress tag ids.
 

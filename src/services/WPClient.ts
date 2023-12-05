@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { BLOBR_KEY } from "../constants/variables";
+import { WP_API_URL } from "../constants/variables";
 
 export interface HttpResponse<T> extends Response {
   parsedBody?: T;
@@ -21,30 +21,24 @@ export interface HttpResponse<T> extends Response {
 
 type SupportedContentTypes = "application/json" | "text/csv";
 
-export class HttpClient {
+export class WPClient {
   static async get<T = any>(
-    url: string,
-    contentType: SupportedContentTypes = "application/json",
-    skipBlobr: boolean = false
+    path: string,
+    contentType: SupportedContentTypes = "application/json"
   ): Promise<HttpResponse<T>> {
-    return await this.request<T>("GET", url, contentType, skipBlobr);
+    return await this.request<T>("GET", path, contentType);
   }
 
   private static async request<T>(
     method: string,
-    url: string,
-    contentType: SupportedContentTypes,
-    skipBlobr = false
+    path: string,
+    contentType: SupportedContentTypes
   ): Promise<HttpResponse<T>> {
     const headers = new Headers();
 
     headers.set("Content-Type", contentType);
 
-    if (!skipBlobr) {
-      headers.set("X-BLOBR-KEY", BLOBR_KEY);
-    }
-
-    const response: HttpResponse<T> = await fetch(url, {
+    const response: HttpResponse<T> = await fetch(`${WP_API_URL}/${path}`, {
       method: method,
       headers,
     });

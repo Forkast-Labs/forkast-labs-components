@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-import { WEB_API_URL } from '../../constants/variables';
-import { INDEX_DATE_TIME_FORMAT } from '../../constants/date';
-import { TimeState } from '../../types/ui';
-import { processResponse } from '../../api/helpers';
-import { HttpClient } from '../../services/HttpClient';
-import { getApiTime } from '../../helpers/ui';
-import { IndexChanges, IndexHistory, IndexSummary } from './types';
-import { BasicResponse } from '../types';
+import { INDEX_DATE_TIME_FORMAT } from "../../constants/date";
+import { TimeState } from "../../types/ui";
+import { processResponse } from "../../api/helpers";
+import { ApiClient } from "../../services/ApiClient";
+import { getApiTime } from "../../helpers/ui";
+import { IndexChanges, IndexHistory, IndexSummary } from "./types";
+import { BasicResponse } from "../types";
 
 export const fetchIndexesSummaries = async (
   symbols: string[],
@@ -31,11 +30,11 @@ export const fetchIndexesSummaries = async (
   const startTimeString = startTime.format(INDEX_DATE_TIME_FORMAT);
   const endTimeString = endTime.format(INDEX_DATE_TIME_FORMAT);
 
-  const url = `${WEB_API_URL}/v1/indexes/summary?symbols=${symbols.join(
-    ','
+  const path = `/indexes/summary?symbols=${symbols.join(
+    ","
   )}&startAt=${startTimeString}&endAt=${endTimeString}`;
 
-  const response = await HttpClient.get<BasicResponse<IndexSummary[]>>(url);
+  const response = await ApiClient.get<BasicResponse<IndexSummary[]>>(path);
 
   return processResponse(response, (data) => data?.data);
 };
@@ -47,11 +46,11 @@ export const fetchIndexesHistory = async (
   const { startTime, endTime } = getApiTime(timeState);
   const startTimeString = startTime.format(INDEX_DATE_TIME_FORMAT);
   const endTimeString = endTime.format(INDEX_DATE_TIME_FORMAT);
-  const url = `${WEB_API_URL}/v1/indexes/charts?symbols=${symbols.join(
-    ','
+  const path = `/indexes/charts?symbols=${symbols.join(
+    ","
   )}&startAt=${startTimeString}&endAt=${endTimeString}`;
 
-  const response = await HttpClient.get<BasicResponse<IndexHistory[]>>(url);
+  const response = await ApiClient.get<BasicResponse<IndexHistory[]>>(path);
 
   return processResponse(response, (data) => data?.data);
 };
@@ -63,9 +62,9 @@ export const fetchIndexChanges = async (
   const { startTime, endTime } = getApiTime(timeState);
   const startTimeString = startTime.format(INDEX_DATE_TIME_FORMAT);
   const endTimeString = endTime.format(INDEX_DATE_TIME_FORMAT);
-  const url = `${WEB_API_URL}/v1/indexes/basis-price-changes?symbol=${symbol}&startAt=${startTimeString}&endAt=${endTimeString}&numIncreases=5&numDecreases=5`;
+  const path = `/indexes/basis-price-changes?symbol=${symbol}&startAt=${startTimeString}&endAt=${endTimeString}&numIncreases=5&numDecreases=5`;
 
-  const response = await HttpClient.get<BasicResponse<IndexChanges>>(url);
+  const response = await ApiClient.get<BasicResponse<IndexChanges>>(path);
 
   return processResponse(response, (data) => data?.data);
 };
@@ -79,29 +78,29 @@ export const exportIndexesHistory = async (
     const formattedStartTime = startTime.format(INDEX_DATE_TIME_FORMAT);
     const formattedEndTime = endTime.format(INDEX_DATE_TIME_FORMAT);
 
-    const url = `${WEB_API_URL}/v1/indexes/csv/history?symbols=${symbols.join(
-      ','
+    const path = `/indexes/csv/history?symbols=${symbols.join(
+      ","
     )}&startAt=${formattedStartTime}&endAt=${formattedEndTime}`;
-    const response = await HttpClient.get(url, 'text/csv');
+    const response = await ApiClient.get(path, "text/csv");
 
     if (response.status !== 200) {
-      throw new Error('Failed to load');
+      throw new Error("Failed to load");
     }
 
     response.blob().then((blob) => {
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
 
       a.href = url;
       a.setAttribute(
-        'download',
+        "download",
         `${symbols.join(
-          ','
+          ","
         )}(${formattedStartTime} - ${formattedEndTime}) - UTC.csv`
       );
       a.click();
     });
   } catch (error) {
-    console.error('Failed to export csv', error);
+    console.error("Failed to export csv", error);
   }
 };
