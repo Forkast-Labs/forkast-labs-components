@@ -30,7 +30,7 @@ export const fetchIndexesSummaries = async (
   const startTimeString = startTime.format(INDEX_DATE_TIME_FORMAT);
   const endTimeString = endTime.format(INDEX_DATE_TIME_FORMAT);
 
-  const path = `/v1/indexes/summary?symbols=${symbols.join(
+  const path = `/indexes/summary?symbols=${symbols.join(
     ","
   )}&startAt=${startTimeString}&endAt=${endTimeString}`;
 
@@ -46,7 +46,7 @@ export const fetchIndexesHistory = async (
   const { startTime, endTime } = getApiTime(timeState);
   const startTimeString = startTime.format(INDEX_DATE_TIME_FORMAT);
   const endTimeString = endTime.format(INDEX_DATE_TIME_FORMAT);
-  const path = `/v1/indexes/charts?symbols=${symbols.join(
+  const path = `/indexes/charts?symbols=${symbols.join(
     ","
   )}&startAt=${startTimeString}&endAt=${endTimeString}`;
 
@@ -62,7 +62,7 @@ export const fetchIndexChanges = async (
   const { startTime, endTime } = getApiTime(timeState);
   const startTimeString = startTime.format(INDEX_DATE_TIME_FORMAT);
   const endTimeString = endTime.format(INDEX_DATE_TIME_FORMAT);
-  const path = `/v1/indexes/basis-price-changes?symbol=${symbol}&startAt=${startTimeString}&endAt=${endTimeString}&numIncreases=5&numDecreases=5`;
+  const path = `/indexes/basis-price-changes?symbol=${symbol}&startAt=${startTimeString}&endAt=${endTimeString}&numIncreases=5&numDecreases=5`;
 
   const response = await ApiClient.get<BasicResponse<IndexChanges>>(path);
 
@@ -78,7 +78,7 @@ export const exportIndexesHistory = async (
     const formattedStartTime = startTime.format(INDEX_DATE_TIME_FORMAT);
     const formattedEndTime = endTime.format(INDEX_DATE_TIME_FORMAT);
 
-    const path = `/v1/indexes/csv/history?symbols=${symbols.join(
+    const path = `/indexes/csv/history?symbols=${symbols.join(
       ","
     )}&startAt=${formattedStartTime}&endAt=${formattedEndTime}`;
     const response = await ApiClient.get(path, "text/csv");

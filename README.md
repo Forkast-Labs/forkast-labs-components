@@ -65,7 +65,6 @@ The following environment variables need to be set in order to use this package:
 
 - _WEB_API_URL_: the URL for the Forkast Labs API service.
 - _API_KEY_: the API key for the Forkast Labs API service.
-- _PRODUCT_ID_: the Product ID for the Forkast Labs API service.
 - _WP_API_URL_: the WordPress API url.
 - _WP_INDEX_TAGS_: Tags map between index and WordPress tag ids.
 

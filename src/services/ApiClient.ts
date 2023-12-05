@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { WEB_API_URL, API_KEY, PRODUCT_ID } from "../constants/variables";
+import { WEB_API_URL, API_KEY } from "../constants/variables";
 
 export interface HttpResponse<T> extends Response {
   parsedBody?: T;
@@ -39,7 +39,6 @@ export class ApiClient {
     headers.set("Content-Type", contentType);
 
     headers.set("X-FKL-API-KEY", API_KEY);
-    headers.set("Blobr-Product-Id", PRODUCT_ID);
 
     const response: HttpResponse<T> = await fetch(`${WEB_API_URL}${path}`, {
       method: method,
